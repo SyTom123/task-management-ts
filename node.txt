@@ -1,0 +1,7 @@
+"devDependencies": {
+    "@types/express": "^4.17.21",  để chạy được typescript trong express
+    "@types/node": "^20.9.5", để chạy được typescript trong nodejs
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1", giống nodemon tự biên dịch khi sửa file
+    "typescript": "^5.3.2": 
+}
