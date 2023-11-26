@@ -3,7 +3,7 @@ import User from '../model/user.model';
 import md5 from "md5";
 import { generateRandomString } from '../../../helpers/generate';
 
-//[POST]/api/v1/register
+//[POST]/api/v1/users/register
 export const register = async(req: Request, res: Response) => {
     const existEmail = await User.findOne({
         email: req.body.email,
@@ -30,7 +30,7 @@ export const register = async(req: Request, res: Response) => {
     }
    
 }
-//[POST]/api/v1/login
+//[POST]/api/v1/users/login
 export const login = async(req: Request, res: Response) => {
     const email: string = req.body.email;
     const password: string = req.body.password;
@@ -59,4 +59,20 @@ export const login = async(req: Request, res: Response) => {
         token: token
     })
     
+}
+//[GET]/api/v1/users/detail
+export const detail = async(req: Request, res: Response) => {
+    const id: string = req.params.id;
+    const user = await User.findOne({
+        _id: id,
+        deleted: false
+    }).select("-password -token");
+    console.log(user);
+    res.json(
+        {
+            code: 200,
+            message: "Thành công!",
+            info: user
+        }
+    )
 }
