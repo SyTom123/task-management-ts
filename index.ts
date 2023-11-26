@@ -1,5 +1,6 @@
 import express, {Express} from 'express';
 import * as database from "./config/database";
+import cors from "cors";
 import dotenv from "dotenv";
 import Task from './api/v1/model/task.model';
 import mainV1Router from './api/v1/router/index.router';
@@ -9,7 +10,15 @@ dotenv.config();
 database.connect();
 const app: Express = express ();
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}));
+
+// const corsOptions = {
+//     origin: "http://example.com",
+//     optionsSuccessStatus: 200
+// }
+// app.use(cors(corsOptions));
+
+app.use(cors());
 
 mainV1Router(app);
 
