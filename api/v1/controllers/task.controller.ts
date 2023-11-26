@@ -2,7 +2,7 @@ import paginationHelper from "../../../helpers/pagination";
 import searchHelper from "../../../helpers/search";
 import Task from "../model/task.model"
 import {Request, Response} from 'express';
-
+// [GET]/api/v1/tasks/
 export const index = async (req: Request, res: Response) => {
     // find
     interface Find {
@@ -51,7 +51,7 @@ export const index = async (req: Request, res: Response) => {
 
     res.json(tasks)
 }
-//[GET]/detail/:id
+//[GET]/api/v1/tasks/detail/:id
 export const detail = async (req: Request, res: Response) => {
     const id: string = req.params.id;
     const task = await Task.findOne({
@@ -61,7 +61,7 @@ export const detail = async (req: Request, res: Response) => {
 
     res.json(task);
 }
-//[PATCH]/change-status/:id
+//[PATCH]/api/v1/tasks/change-status/:id
 export const changeStatus = async (req: Request, res: Response) => {
     try {
         const id: string = req.params.id;
@@ -84,7 +84,7 @@ export const changeStatus = async (req: Request, res: Response) => {
     }
 
 }
-//[PATCH]/change-multi/
+//[PATCH]/api/v1/tasks/change-multi/
 export const changeMulti = async (req: Request, res: Response) => {
     try {
         const ids: string[] = req.body.ids;
@@ -115,4 +115,23 @@ export const changeMulti = async (req: Request, res: Response) => {
         })
     }
 
+}
+//[POST]/api/v1/tasks/create
+export const create = async (req: Request, res: Response) => {
+    try {
+        const task = new Task(req.body);
+        const data = await task.save();
+        res.json({
+            code: 200,
+            message: "Tạo mới thành công!",
+            data: data
+        })
+
+    } catch (error) {
+        res.json({
+            code: 400,
+            message: "Lỗi"
+        })
+    }
+   
 }
